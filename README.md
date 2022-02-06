@@ -1,5 +1,7 @@
 # OCB3
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/ericlagergren/ocb3.svg)](https://pkg.go.dev/github.com/ericlagergren/ocb3)
+
 OCB3 mode by [Rogaway](https://web.cs.ucdavis.edu/~rogaway/ocb/ocb-faq.htm).
 
 ## Security
