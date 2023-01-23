@@ -254,8 +254,8 @@ func (a *aead) Seal(dst, nonce, plaintext, additionalData []byte) []byte {
 	if a.tagSize < minTagSize {
 		panic("ocb3: invalid tag length")
 	}
-	if len(plaintext)+len(additionalData) < 0 ||
-		len(plaintext)+len(additionalData) > maxInputSize {
+	if uint64(len(plaintext)) > maxInputSize ||
+		maxInputSize-uint64(len(plaintext)) < uint64(len(additionalData)) {
 		panic("ocb3: message too large")
 	}
 
@@ -350,8 +350,8 @@ func (a *aead) Open(dst, nonce, ciphertext, additionalData []byte) ([]byte, erro
 	if len(ciphertext) < a.tagSize {
 		return nil, errOpen
 	}
-	if len(ciphertext)+len(additionalData) < 0 ||
-		len(ciphertext)+len(additionalData) > maxInputSize+a.tagSize {
+	if uint64(len(ciphertext)) > maxInputSize ||
+		(maxInputSize+uint64(a.tagSize))-uint64(len(ciphertext)) < uint64(len(additionalData)) {
 		panic("ocb3: message too large")
 	}
 
